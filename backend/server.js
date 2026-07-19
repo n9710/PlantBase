@@ -25,13 +25,33 @@ app.use(helmet());
 app.use(cookieParser());
 
 // CORS
+// app.use(cors({
+//   origin: process.env.NODE_ENV === 'production'
+//     ? [process.env.FRONTEND_URL || 'https://yourdomain.com']
+//     : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'],
+//   credentials: true,
+//   allowedHeaders: ['Content-Type', 'Authorization']
+// }));
+
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:3000",
+  process.env.FRONTEND_URL,
+];
+
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? [process.env.FRONTEND_URL || 'https://yourdomain.com']
-    : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
-  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 
 // Rate limiting
 const generalLimiter = rateLimit({
