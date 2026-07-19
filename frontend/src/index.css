@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── LIGHT MODE ─── */
+:root {
+  --pb-bg: #FDFAF4;
+  --pb-surface: #F5F0E8;
+  --pb-accent: #8DB600;
+  --pb-accent-hover: #7DA300;
+  --pb-secondary: #A0522D;
+  --pb-text: #2C1A0E;
+  --pb-text-secondary: #6B4C2A;
+  --pb-border: #D4C5A9;
+  --pb-success: #22c55e;
+  --pb-danger: #ef4444;
+  --pb-warning: #f59e0b;
+}
+
+/* ─── DARK MODE ─── */
+.dark {
+  --pb-bg: #1A110A;
+  --pb-surface: #2C1E12;
+  --pb-accent: #A8CC00;
+  --pb-accent-hover: #BFDF1A;
+  --pb-secondary: #C47A3A;
+  --pb-text: #F5EDD9;
+  --pb-text-secondary: #C4AA85;
+  --pb-border: #4A3520;
+  --pb-success: #4ade80;
+  --pb-danger: #f87171;
+  --pb-warning: #fbbf24;
+}
+
+/* ─── 🌿 NATURE THEME ─── */
+.nature {
+  --pb-bg: #F0F7E6;
+  --pb-surface: #E2EFCF;
+  --pb-accent: #E6A817;
+  --pb-accent-hover: #D4960F;
+  --pb-secondary: #4A7C3F;
+  --pb-text: #1A3409;
+  --pb-text-secondary: #3D6B2E;
+  --pb-border: #B5C99A;
+  --pb-success: #2E8B57;
+  --pb-danger: #CC4444;
+  --pb-warning: #DAA520;
+  --pb-nature-glow: rgba(230, 168, 23, 0.15);
+  --pb-nature-leaf: #5B8C3E;
+}
+
+* { transition: background-color 0.3s ease, border-color 0.3s ease, color 0.15s ease; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--pb-bg);
+  color: var(--pb-text);
+}
+
+h1, h2, h3, .font-display { font-family: 'Playfair Display', serif; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-6px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px var(--pb-nature-glow, transparent); }
+  50%      { box-shadow: 0 0 20px var(--pb-nature-glow, transparent); }
+}
+
+.animate-fade-up   { animation: fadeUp 0.5s ease forwards; }
+.animate-fade-in   { animation: fadeIn 0.4s ease forwards; }
+.animate-scale-in  { animation: scaleIn 0.4s ease forwards; }
+.animate-slide-down { animation: slideDown 0.2s ease-out forwards; }
+.animate-float     { animation: float 3s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+
+/* Staggered children */
+.stagger > * { opacity: 0; animation: fadeUp 0.5s ease forwards; }
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger > *:nth-child(8) { animation-delay: 0.4s; }
+
+/* Shimmer skeleton */
+.shimmer {
+  background: linear-gradient(90deg, var(--pb-surface) 25%, var(--pb-border) 50%, var(--pb-surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+}
+.dark .card-lift:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+}
+.nature .card-lift:hover {
+  box-shadow: 0 16px 40px rgba(90,140,62,0.15);
+}
+
+/* Accent button glow */
+.btn-accent {
+  background-color: var(--pb-accent);
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.btn-accent:hover {
+  background-color: var(--pb-accent-hover);
+  box-shadow: 0 4px 20px rgba(141,182,0,0.3);
+  transform: translateY(-1px);
+}
+.nature .btn-accent:hover {
+  box-shadow: 0 4px 20px rgba(230, 168, 23, 0.35);
+}
+.btn-accent:active {
+  transform: scale(0.97);
+}
+
+/* Nature theme special glow for cards */
+.nature .nature-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ─── Order Status Stepper ─── */
+.status-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+.status-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+.status-step::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: -50%;
+  width: 100%;
+  height: 3px;
+  background: var(--pb-border);
+  z-index: 0;
+}
+.status-step:first-child::before { display: none; }
+.status-step.active::before { background: var(--pb-accent); }
+.status-step .step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--pb-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  font-size: 14px;
+  color: var(--pb-text-secondary);
+  transition: all 0.3s ease;
+}
+.status-step.active .step-dot {
+  background: var(--pb-accent);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(141,182,0,0.4);
+}
+.status-step.completed .step-dot {
+  background: var(--pb-success);
+  color: #fff;
+}
+.status-step .step-label {
+  margin-top: 8px;
+  font-size: 11px;
+  text-align: center;
+  color: var(--pb-text-secondary);
+  font-weight: 500;
+  max-width: 80px;
+}
+.status-step.active .step-label {
+  color: var(--pb-accent);
+  font-weight: 700;
+}
+
+/* ─── Prose content (Privacy Policy, etc.) ─── */
+.prose-content {
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: var(--pb-text-secondary);
+}
+.prose-content p {
+  margin-bottom: 1rem;
+}
+.prose-content ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.prose-content li {
+  margin-bottom: 0.5rem;
+}
+.prose-content strong {
+  color: var(--pb-text);
+  font-weight: 600;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--pb-accent); border-radius: 99px; }
